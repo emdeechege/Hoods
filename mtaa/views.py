@@ -57,3 +57,8 @@ def activate(request, uidb64, token):
 def home(request):
     profile= Profile.get_profile()
     business= Business.get_business()
+    hoods= Hood.get_hoods()
+
+    return redirect('home')
+
+    return render(request,"home.html",{"hoods":hoods, "business":business,"profile":profile})

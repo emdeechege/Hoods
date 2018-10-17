@@ -67,7 +67,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
-    'projects',
+    'hoods',
     'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -88,7 +88,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'awaaards.urls'
+ROOT_URLCONF = 'hoods.urls'
 
 TEMPLATES = [
     {
@@ -167,7 +167,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_REDIRECT_URL='home'
-AUTH_PROFILE_MODULE = 'projects.UserProfile'
+AUTH_PROFILE_MODULE = 'hoods.UserProfile'
 
 
 # Configure Django App for Heroku.

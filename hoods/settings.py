@@ -67,7 +67,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework',
-    'hoods',
+    'mtaa',
     'bootstrap4',
     'django.contrib.admin',
     'django.contrib.auth',

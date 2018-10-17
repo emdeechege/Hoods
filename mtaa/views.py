@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http  import HttpResponse,Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import *
-from .forms import *
+# from .forms import *
 from django.contrib.auth import login, authenticate
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
@@ -58,7 +58,5 @@ def home(request):
     profile= Profile.get_profile()
     business= Business.get_business()
     hoods= Hood.get_hoods()
-
-    return redirect('home')
 
     return render(request,"home.html",{"hoods":hoods, "business":business,"profile":profile})

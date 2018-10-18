@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 # Create your models here.
 
-
+class Location(models.Model):
+    name = models.CharField(max_length=100, blank=True, null=True)
 
 class Hood(models.Model):
     hood_photo = models.ImageField(upload_to='hoods/')

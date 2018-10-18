@@ -28,7 +28,8 @@
           </div>
           <hr>
           <p>Population: {{hood.occupants_count}}</p>
-
+<button class="four d-flex justify-content-end" style="float:right; padding:10px; margin:5px">
+  <a href="{% url 'join' hood.id %}"></a>Join</button>
         </div>
 
       </div>

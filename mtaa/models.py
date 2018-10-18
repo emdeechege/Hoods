@@ -12,7 +12,7 @@ class Location(models.Model):
 class Hood(models.Model):
     hood_photo = models.ImageField(upload_to='hoods/')
     hood_name = models.CharField(max_length=100, null=True)
-    occupants_count = models.IntegerField(null=True)
+    occupants_count = models.PositiveIntegerField(default=0)
     location = models.ForeignKey(Location, null=True)
     admin = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
@@ -20,6 +20,9 @@ class Hood(models.Model):
     def get_hoods(cls):
         hoods = Hood.objects.all()
         return hoods
+
+    class Meta:
+        ordering = ['hood_name']
 
 
 class Business(models.Model):

@@ -78,12 +78,14 @@ def new_business(request):
 
 @login_required(login_url='/accounts/login/')
 def add_profile(request):
+
     current_user = request.user
     if request.method == 'POST':
         form = NewProfileForm(request.POST, request.FILES)
         if form.is_valid():
             profile = form.save(commit=False)
             profile.user = current_user
+            profile.email = current_user.email
             profile.save()
         return redirect('home')
 

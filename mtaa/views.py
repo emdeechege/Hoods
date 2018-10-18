@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http  import HttpResponse,Http404,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import *
-# from .forms import *
+from .forms import *
 from django.contrib.auth import login, authenticate
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
@@ -65,7 +65,7 @@ def new_business(request):
     current_user = request.user
 
     if request.method == 'POST':
-        form = NewBusinessForm(request.POST, request.FILES)
+        form = BusinessForm(request.POST, request.FILES)
         if form.is_valid():
             business = form.save(commit=False)
             business.user = current_user
@@ -73,5 +73,20 @@ def new_business(request):
             return redirect('neighbourhood')
 
     else:
-        form = NewBusinessForm()
-    return render(request, 'new_business.html', {"form": form})
+        form = BusinessForm()
+    return render(request, 'business.html', {"form": form})
+
+@login_required(login_url='/accounts/login/')
+def add_profile(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = current_user
+            profile.save()
+        return redirect('home')
+
+    else:
+        form = NewProfileForm()
+    return render(request, 'new_profile.html', {"form": form})

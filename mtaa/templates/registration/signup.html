@@ -1,26 +1,21 @@
 {%extends "registration/base.html"%} {% load bootstrap4 %}
 {% block content %}
 <div class="container-fluid mt-5 p-5">
-  <header style="font-size: 40px;">
-    HOODMTAA
-  </header>
-  <div class="row">
-        <div class="col-lg-6 p-5">
-      <img src="https://clipart.info/images/ccovers/1505918650Platinum-Iphone-X-Transparent-Background.png" alt="" class="img-fluid">
-    </div>
-    <div class="col-lg-6 p-5">
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
+  <header style="font-size: 40px;">MAISHA MTAANI</header>
+  <h2 class="one d-flex justify-content">Sign up</h2>
+<div class="one d-flex justify-content-end">
+
+    <form method="post">
+      {% csrf_token %}
       {% for field in form %}
       <p>
         {{ field.label_tag }}<br>
         {{ field }}
         {% if field.help_text %}
-          <small style="display: none">{{ field.help_text }}</small>
+        <small style="display: none">{{ field.help_text }}</small>
         {% endif %}
         {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
+        <p style="color: red">{{ error }}</p>
         {% endfor %}
       </p>
       {% endfor %}
@@ -31,8 +26,8 @@
       <input type="hidden" name="next" value="{{next}}">
 
     </form>
-
   </div>
-
 </div>
+
+
 {% endblock %}

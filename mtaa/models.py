@@ -22,6 +22,11 @@ class Hood(models.Model):
         hoods = Hood.objects.all()
         return hoods
 
+    @classmethod
+    def search_hood(cls,hood_search):
+        hoods = cls.objects.filter(hood_name__icontains = hood_search)
+        return hoods
+
     class Meta:
         ordering = ['hood_name']
 

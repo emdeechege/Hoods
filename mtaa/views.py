@@ -89,11 +89,10 @@ def new_business(request):
 
 @login_required(login_url='/accounts/login/')
 def profile(request):
-	'''
-	This view function will fetch a user's profile
-	'''
-	profile = Profile.objects.get(user = request.user)
-	return render(request,'profiles/profile.html',{"profile":profile})
+    profile = Profile.objects.get(user = request.user)
+    hoods = Hood.objects.filter(user = request.user).all()
+    business = Business.objects.filter(user = request.user).all()
+    return render(request,'profiles/profile.html',{"profile":profile,"hoods":hoods,"business": business})
 
 @login_required(login_url='/accounts/login/')
 def edit_profile(request):

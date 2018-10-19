@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
+from django.contrib import messages
 # from django.views.generic.edit import UpdateView
 
 # Create your views here.
@@ -22,7 +23,7 @@ def signup(request):
             current_user.is_active = False
             current_user.save()
             current_site = get_current_site(request)
-            mail_subject = 'Activate your instapicha account.'
+            mail_subject = 'Activate your MtaaHood Account.'
             message = render_to_string('registration/acc_active_email.html', {
                 'user': current_user,
                 'domain': current_site.domain,
@@ -55,11 +56,19 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 def home(request):
-    profile= Profile.get_profile()
-    business= Business.get_business()
-    hoods= Hood.get_hoods()
 
-    return render(request,"home.html",{"hoods":hoods, "business":business,"profile":profile})
+	if request.user.is_authenticated:
+		if Join.objects.filter(user_id = request.user).exists():
+			hood = Hood.objects.get(pk = request.user.join.hood_id.id)
+			posts =" Posts.objects.filter(hood = request.user.join.hood_id.id)"
+			businesses = Business.objects.filter(hood = request.user.join.hood_id.id)
+			return render(request,'hoods/hood.html',{"hood":hood,"businesses":businesses,"posts":posts})
+		else:
+			neighbourhoods = Hood.objects.all()
+			return render(request,'index.html',{"neighbourhoods":neighbourhoods})
+	else:
+		neighbourhoods = Hood.objects.all()
+		return render(request,'index.html',{"neighbourhoods":neighbourhoods})
 
 def new_business(request):
     current_user = request.user
@@ -70,7 +79,7 @@ def new_business(request):
             business = form.save(commit=False)
             business.user = current_user
             business.save()
-            return redirect('neighbourhood')
+            return redirect('home')
 
     else:
         form = BusinessForm()
@@ -104,14 +113,13 @@ def edit_profile(request):
 
 def hoods(request):
 
-	hoods = Hood.objects.filter(user = request.user)
-	return render(request,'hoods/hood.html',{"hoods":hoods})
+	hood = Hood.objects.filter(user = request.user)
+
+	return render(request,'hoods/hood.html',{"hood":hood})
 
 @login_required(login_url='/accounts/login/')
 def join(request,hoodId):
-	'''
-	This view function will implement adding
-	'''
+
 	neighbourhood = Hood.objects.get(pk = hoodId)
 	if Join.objects.filter(user_id = request.user).exists():
 
@@ -121,4 +129,4 @@ def join(request,hoodId):
 		Join(user_id=request.user,hood_id = neighbourhood).save()
 
 	messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
-	return redirect('/hoods/hood.html')
+	return redirect('home')

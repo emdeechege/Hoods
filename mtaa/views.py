@@ -124,7 +124,6 @@ def join(request,hoodId):
 
 	neighbourhood = Hood.objects.get(pk = hoodId)
 	if Join.objects.filter(user_id = request.user).exists():
-
 		Join.objects.filter(user_id = request.user).update(hood_id = neighbourhood)
 	else:
 
@@ -164,7 +163,7 @@ def create_post(request):
 			form = PostForm(request.POST)
 			if form.is_valid():
 				post = form.save(commit = False)
-				post.user = request.user
+				post.posted_by = request.user
 				post.hood = request.user.join.hood_id
 				post.save()
 				messages.success(request,'You have succesfully created a Post')
@@ -172,6 +171,22 @@ def create_post(request):
 		else:
 			form = PostForm()
 		return render(request,'posts/createpost.html',{"form":form})
+
+@login_required(login_url='/accounts/login/')
+def add_comment(request,pk):
+    post = get_object_or_404(Post, pk=pk)
+    current_user = request.user
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.poster = current_user
+            comment.save()
+            return redirect('home')
+    else:
+        form = CommentForm()
+        return render(request,'comment.html',{"user":current_user,"comment_form":form})
 
 def delete_post(request,postId):
 	Posts.objects.filter(pk = postId).delete()

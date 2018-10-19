@@ -78,8 +78,8 @@ class Join(models.Model):
 
 class Posts(models.Model):
 	title = models.CharField(max_length = 300)
-	body = models.TextField()
-	user = models.ForeignKey(User)
+	content = models.TextField()
+	posted_by = models.ForeignKey(User, null=True)
 	hood = models.ForeignKey(Hood)
 
 	def save_posts(self):
@@ -91,16 +91,22 @@ class Posts(models.Model):
 	def __str__(self):
 		return self.title
 
-class Comments(models.Model):
-	comment = models.CharField(max_length = 600)
-	user = models.ForeignKey(User)
-	post = models.ForeignKey(Posts)
+class Comment(models.Model):
+    poster = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
+    post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='comments',null=True)
+    comment = models.CharField(max_length=200, null=True)
 
-	def save_comment(self):
-		self.save()
+    def __str__(self):
+        return self.comment
 
-	def delete_comment(self):
-		self.delete()
+    def save_comment(self):
+        self.save()
 
-	def __str__(self):
-		return self.comment
+    @classmethod
+    def get_comment(cls):
+        comment = Comment.objects.all()
+        return comment
+
+    @classmethod
+    def delete_comment(self):
+        self.delete()

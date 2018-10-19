@@ -51,7 +51,7 @@ def activate(request, uidb64, token):
         current_user.save()
         login(request, current_user)
         # return redirect('home')
-        return HttpResponse('Thank you for your email confirmation. <a href="https://instapichas.herokuapp.com"> Login </a> Now you can login your account.')
+        return HttpResponse('Thank you for your email confirmation. <a href="https://mtaanihoods.herokuapp.com"> Login </a> Now you can login your account.')
     else:
         return HttpResponse('Activation link is invalid!')
 
@@ -62,6 +62,7 @@ def home(request):
 			hood = Hood.objects.get(pk = request.user.join.hood_id.id)
 			posts =" Posts.objects.filter(hood = request.user.join.hood_id.id)"
 			businesses = Business.objects.filter(hood = request.user.join.hood_id.id)
+
 			return render(request,'hoods/hood.html',{"hood":hood,"businesses":businesses,"posts":posts})
 		else:
 			neighbourhoods = Hood.objects.all()
@@ -138,3 +139,20 @@ def exitHood(request,hoodId):
 		Join.objects.get(user_id = request.user).delete()
 		messages.error(request, 'You have succesfully exited this Neighbourhood.')
 		return redirect('home')
+
+@login_required(login_url='/accounts/login/')
+def create_post(request):
+
+	if Join.objects.filter(user_id = request.user).exists():
+		if request.method == 'POST':
+			form = PostForm(request.POST)
+			if form.is_valid():
+				post = form.save(commit = False)
+				post.user = request.user
+				post.hood = request.user.join.hood_id
+				post.save()
+				messages.success(request,'You have succesfully created a Forum Post')
+				return redirect('home')
+		else:
+			form = PostForm()
+		return render(request,'posts/createpost.html',{"form":form})

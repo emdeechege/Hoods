@@ -1,32 +1,32 @@
-# 卩尺ㄖﾌ乇匚ㄒ 卂山卂尺ᗪ丂
+![MAISHA MTAANI](/static/img/logo.png)
 
-![AWARDS](/static/img/md.png)
 
 ## Built By [Tom Chege](https://github.com/emdeechege/)
 
 ## Description
-This is a web application that allows different developers to post their projects and peers can review the same by grading the projects in terms of userbility, design and content.
+This is a web application that allows users to join neighborhoods, create new neighborhoods, delete hoods, update and create profiles.
+Users can communicate to other members in the hoods they join.
 
 
 ## User Stories
-These are the behaviours/features that the application implements for use by a user.
+These are the behaviors/features that the application implements for use by a user.
 
 Users would like to:
-* View all projects submitted by any user.
-* Click on links to visit a live site.
-* Search for users.
-* Must be signed up to vote
-* See averages for the three grading criterias
-* Grade Projects.
-
+* Sign in with the application to start using.
+* Set up a profile about me and a general location and my neighborhood name.
+* Find a list of different businesses in my neighborhood.
+* Find Contact Information for the health department and Police authorities near my neighborhood.
+* Create Posts that will be visible to everyone in my neighborhood.
+* Change My neighborhood when I decide to move out.
+* Only view details of a single neighborhood.
 
 ## Admin Abilities
 These are the behaviours/features that the application implements for use by the admin.
 
 Admin should:
 * Sign in to the application
-* Add, Edit and Delete projects
-* Delete projects
+* Add, Edit and Delete hoods,posts,businesses
+* Delete hoods,posts,businesses
 * Manage the application.
 
 
@@ -35,14 +35,12 @@ Admin should:
 | :---------------- | :---------------: | ------------------: |
 | Admin Authentication | **On demand** | Access Admin dashboard |
 | Admin Authentication | **On demand, verify emails before proceeding** | Access Admin dashboard |
-| Display all projects with grading | **Home page** | Clickable links to open live projects in different sites |
-| To add an project  | **Through Admin dashboard and homepage** | Click on add and upload respectively|
-| To edit project  | **Through Admin dashboard** | Redirected to the  project form details and editing happens|
-| To delete an project  | **Through Admin dashboard** | click on project object and confirm by delete button|
-| To search projects by title | **Enter text in search bar** | Users can search by Project Title|
-| Comment on projects | **Add comments below respective project** | Users can add comments on any project|
-| Vote on projects | **vote** | Users can review projects they like and comment|
-
+| Display all hoods,posts,businesses | **Home page** | Clickable links to open live hoods,posts,businesses in different sites |
+| To add an hoods,posts,businesses  | **Through Admin dashboard and homepage** | Click on add and upload respectively|
+| To edit hoods,posts,businesses  | **Through Admin dashboard** | Redirected to the  hoods,posts,businesses form details and editing happens|
+| To delete an hoods,posts,businesses  | **Through Admin dashboard** | click on hoods,posts,businesses object and confirm by delete button|
+| To search hoods by id | **Enter text in search bar** | Users can search by Hoods by ID|
+| View posts by neighbours | **Add posts** | Users can add posts to hoods they join|
 
 ## SetUp / Installation Requirements
 ### Prerequisites
@@ -54,7 +52,7 @@ Admin should:
 ### Cloning
 * In your terminal:
 
-        $ git clone https://github.com/emdeechege/Instrapicha
+        $ git clone https://github.com/emdeechege/Hoods
         $ cd Awards
 
 ## Running the Application
@@ -75,7 +73,7 @@ Admin should:
 ## Testing the Application
 * To run the tests for the class files:
 
-        $ python3.6 manage.py test projects
+        $ python3.6 manage.py test mtaa
 
 ## Technologies Used
 * Python3.6
@@ -83,7 +81,7 @@ Admin should:
 
 ## Known Bugs
 
-* Multiple votes can be done on single project
+* Occupants/resident count
 
 ## License
 

@@ -24,7 +24,7 @@ class Hood(models.Model):
 
     @classmethod
     def search_hood(cls,hood_search):
-        hoods = cls.objects.filter(hood_name__icontains = hood_search)
+        hoods = cls.objects.filter(id__icontains = hood_search)
         return hoods
 
     class Meta:

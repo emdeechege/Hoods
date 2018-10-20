@@ -140,9 +140,7 @@ def exitHood(request,hoodId):
 		return redirect('home')
 
 def search(request):
-	'''
-	This view function will implement search of a hood
-	'''
+
 	if request.GET['search']:
 		hood_search = request.GET.get("search")
 		hoods = Hood.search_hood(hood_search)
@@ -151,7 +149,7 @@ def search(request):
 		return render(request,'hoods/search.html',{"message":message,"hoods":hoods})
 
 	else:
-		message = "You Haven't searched for any item"
+		message = "You Haven't searched for any hood"
 		return render(request,'hood/search.html',{"message":message})
 
 @login_required(login_url='/accounts/login/')

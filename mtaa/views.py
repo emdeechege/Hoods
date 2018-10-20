@@ -131,18 +131,6 @@ def join(request,hoodId):
 	messages.success(request, 'Success! You have succesfully joined this Neighbourhood ')
 	return redirect('home')
 
-@login_required(login_url="/accounts/login/")
-def like(request,operation,pk):
-    hood = get_object_or_404(Hood,pk=pk)
-
-    if operation == 'join':
-        hood.likes += 1
-        hood.save()
-    elif operation =='exitHood':
-        hood.likes -= 1
-        hood.save()
-    return redirect('home')
-
 @login_required(login_url='/accounts/login/')
 def exitHood(request,hoodId):
 

@@ -2,6 +2,7 @@
 {%block content%}
 <br>
 <br>
+<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 <div class="c" style="padding-top: 24px">
 					{% include 'message/message.html' %}
 			</div>
@@ -33,8 +34,8 @@
 						</div>
 					</div>
 					<hr>
-					<p>Population: {{hood.occupants_count}} {{ hood.join.count| floatformat }}</p>
-						<a id="like" href="{% url 'like' operation='like' pk=hood.id%}"></a>
+					<p>Occupants: {{hood.user.join.hood_id.id}}</p>
+
 						<a class="btn btn-sm btn-success" href="{% url 'join' hood.id %}">Join</a>
 				</div>
 

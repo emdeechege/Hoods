@@ -58,6 +58,8 @@
         <h4>Hoods</h4>
         <img src="{{hood.hood_photo.url}}" alt="Image" style="height:300px;width:300px;">
         <p>{{hood.hood_name}}</p>
+        <a href="{% url 'delete_hood' %}" class="btn btn-sm btn-danger">Delete</a>
+        <hr>
       </div>
       {% empty %}
       <div>

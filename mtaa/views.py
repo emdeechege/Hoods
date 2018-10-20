@@ -206,3 +206,9 @@ def create_hood(request):
     else:
         form = CreateHoodForm()
     return render(request,'hoods/create_hood.html',{"form":form})
+
+def delete_hood(request):
+
+	Hood.objects.filter(user = request.user).delete()
+	messages.error(request,'Succesfully deleted your hood')
+	return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

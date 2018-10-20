@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^profile/$',views.profile,name = 'profile'),
     url(r'^editprofile/$',views.edit_profile,name= 'edit_profile'),
     url(r'^new/business', views.new_business, name='add_business'),
-    url(r'^join/(\d+)',views.join,name = 'join'),
+    url(r'^join/(?P<operation>.+)/(\d+)',views.join,name = 'join'),
     url(r'^myhood/$',views.hoods,name = 'hood'),
     url(r'^exitHood/(\d+)',views.exitHood,name = 'exitHood'),
     url(r'^createpost/$',views.create_post,name = 'create_post'),
@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^deletepost/(\d+)',views.delete_post,name = 'delete_post'),
     url(r'^search/$',views.search,name= 'search'),
     url(r'^deletehood/(\d+)',views.delete_hood,name = 'delete_hood'),
+    url(r'^updatehood/(\d+)', views.update_hood, name='update_hood'),
+    url(r'^like/(?P<operation>.+)/(?P<pk>\d+)',views.like, name='like'),
 ]
 
 if settings.DEBUG:

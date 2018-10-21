@@ -55,6 +55,12 @@ class Profile(models.Model):
 
         post_save.connect(create_user_profile, sender=User)
 
+    @receiver(post_save, sender=User)
+    def update_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+        instance.profile.save()
+
     @classmethod
     def get_profile(cls):
         profile = Profile.objects.all()
@@ -63,11 +69,7 @@ class Profile(models.Model):
     class Meta:
         ordering = ['user']
 
-    @receiver(post_save, sender=User)
-    def update_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
-        instance.profile.save()
+
 
 class Join(models.Model):
 	user_id = models.OneToOneField(User)

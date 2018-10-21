@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^search/$',views.search,name= 'search'),
     url(r'^deletehood/(\d+)',views.delete_hood,name = 'delete_hood'),
     url(r'^updatehood/(\d+)', views.update_hood, name='update_hood'),
+    url(r'^occupants/(?P<hood_id>\d+)', views.occupants, name='occupants'),    
 
 ]
 

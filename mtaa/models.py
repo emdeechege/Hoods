@@ -63,11 +63,11 @@ class Profile(models.Model):
     class Meta:
         ordering = ['user']
 
-@receiver(post_save, sender=User)
-def update_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-    instance.profile.save()
+    @receiver(post_save, sender=User)
+    def update_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+        instance.profile.save()
 
 class Join(models.Model):
 	user_id = models.OneToOneField(User)
@@ -90,23 +90,3 @@ class Posts(models.Model):
 
 	def __str__(self):
 		return self.title
-
-class Comment(models.Model):
-    poster = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
-    post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='comments',null=True)
-    comment = models.CharField(max_length=200, null=True)
-
-    def __str__(self):
-        return self.comment
-
-    def save_comment(self):
-        self.save()
-
-    @classmethod
-    def get_comment(cls):
-        comment = Comment.objects.all()
-        return comment
-
-    @classmethod
-    def delete_comment(self):
-        self.delete()
